@@ -23,7 +23,7 @@ CREATE TABLE `workout` (
 `total_time_in_min` int(11),
 `time_of_day` varchar(255),
 PRIMARY KEY (`id`),
-FOREIGN KEY (`did`) REFERENCES `day` (`id`)
+FOREIGN KEY (`did`) REFERENCES `day` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB;
 
 
@@ -50,16 +50,16 @@ CREATE TABLE `workout_exercise` (
 `w_id` int(11) NOT NULL,
 `e_id` int(11) NOT NULL,
 PRIMARY KEY(`w_id`,`e_id`),
-FOREIGN KEY (`w_id`) REFERENCES `workout` (`id`),
-FOREIGN KEY (`e_id`) REFERENCES `exercise` (`id`)
+FOREIGN KEY (`w_id`) REFERENCES `workout` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`e_id`) REFERENCES `exercise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 )ENGINE=InnoDB;
 
 CREATE TABLE `exercise_muscle_groups` (
 `e_id` int(11) NOT NULL,
 `mg_id` int(11) NOT NULL,
 PRIMARY KEY(`e_id`,`mg_id`),
-FOREIGN KEY (`e_id`) REFERENCES `exercise` (`id`),
-FOREIGN KEY (`mg_id`) REFERENCES `muscle_groups` (`id`)
+FOREIGN KEY (`e_id`) REFERENCES `exercise` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+FOREIGN KEY (`mg_id`) REFERENCES `muscle_groups` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 
 )ENGINE=InnoDB
 
