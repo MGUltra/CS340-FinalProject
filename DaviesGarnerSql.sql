@@ -30,10 +30,10 @@ FOREIGN KEY (`did`) REFERENCES `day` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 CREATE TABLE `exercise` (
 `id` int(11) NOT NULL AUTO_INCREMENT,
 `exercise_name` varchar(255) NOT NULL,
-`exercise_type` varchar(255) NOT NULL, -- cardio or weight training
-`resistance` varchar(255),             -- yes/no for cardio resistance
-`push_pull` varchar(255),              -- push or pull for weight training
-`compound_isolation` varchar(255),     -- compound or isolation for weight training
+`exercise_type` varchar(255) NOT NULL, 
+`resistance` varchar(255),             
+`push_pull` varchar(255),              
+`compound_isolation` varchar(255),     
 PRIMARY KEY(`id`)
 
 )ENGINE=InnoDB;
@@ -82,10 +82,10 @@ INSERT INTO `exercise_muscle_groups` (e_id, mg_id) VALUES
 
 
 INSERT INTO `day` (exact_date, day_of_week) VALUES 
-('2016-11-07', 'Monday'), ('2016-11-07', 'Tuesday'), ('2016-11-09', 'Wednesday');
+('2016-11-07', 'Monday'), ('2016-11-08', 'Tuesday'), ('2016-11-09', 'Wednesday');
 
 
-INSERT INTO `workout` (did, total_time_in_min, time_of_day) VALUES ((SELECT id from day WHERE exact_date='2016-11-07'), 60, 'morning'), ((SELECT id from day WHERE exact_date='2016-11-08'), 60, 'morning'), ((SELECT id from day WHERE exact_date='2016-11-09'), 90, 'afternoon');
+INSERT INTO `workout` (did, name, total_time_in_min, time_of_day) VALUES ((SELECT id from day WHERE exact_date='2016-11-07'),'morning routine', 60, 'morning'), ((SELECT id from day WHERE exact_date='2016-11-08'),'running late', 60, 'morning'), ((SELECT id from day WHERE exact_date='2016-11-09'),'Leg Day', 90, 'afternoon');
 
 
 
