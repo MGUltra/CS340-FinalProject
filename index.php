@@ -13,6 +13,139 @@ if($mysqli->connect_errno){
 <html>
 <body>
 
+<!-- Adding a new Day into the day table -->
+<div>
+	<form method="post" action="addday.php"> 
+
+		<fieldset>
+			<legend>Add a new Workout Day</legend>
+			
+			<p>Date: <input type="date" name="theDate" /></p>
+			
+			<p>Day of the week:
+			<select name="dayWeek">
+				<option value="Sunday">Sunday</option>
+				<option value="Monday">Monday</option>
+				<option value="Tuesday">Tuesday</option>
+				<option value="Wednesday">Wednesday</option>
+				<option value="Thursday">Thursday</option>
+				<option value="Friday">Friday</option>
+				<option value="Saturday">Saturday</option>
+			</select>
+			</p>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>
+	
+</div>
+
+
+<!-- Adding a new Workout into the workout table -->
+<div>
+	<form method="post" action="addworkout.php"> 
+
+		<fieldset>
+			<legend>Add a new Workout</legend>
+			
+			<p>Select Date:</p>
+			<select name="eDate">
+<?php			
+if(!($stmt = $mysqli->prepare("SELECT id, exact_date FROM day"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($id, $edate)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value="'. $id .'"> ' . $edate . '</option>\n';
+}
+$stmt->close();
+?>
+			
+			</select>			
+			
+
+			<p>Workout Name(Ex."Leg Day"): <input type="text" name="wName" /></p>
+			
+			<p>Total length of workout in minutes: <input type="number" name="toTime" /></p>
+			
+			<p>Time of Day:
+			<select name="tDay">
+				<option value="Morning">Morning</option>
+				<option value="Afternoon">Afternoon</option>
+				<option value="Evening">Evening</option>
+			</select>
+			</p>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>
+	
+</div>
+
+<!-- Adding a Workout/Exercise relationship into workout_exercise table -->
+<div>
+	<form method="post" action="addworkex.php"> 
+
+		<fieldset>
+			<legend>Add an exercise to a Workout</legend>
+			
+			<p>Select Workout by name</p>
+			<select name="wName">
+<?php			
+if(!($stmt = $mysqli->prepare("SELECT id, name FROM workout"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($id, $wname)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value=" '. $id . ' "> ' . $wname . '</option>\n';
+}
+$stmt->close();
+?>
+
+			</select>
+			
+			</br>
+			
+			<p>Select Exercise</p>
+			<select name="eName">
+<?php			
+if(!($stmt = $mysqli->prepare("SELECT id, exercise_name FROM exercise"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($id, $ename)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value=" '. $id . ' "> ' . $ename . '</option>\n';
+}
+$stmt->close();
+?>
+
+			</select>
+			
+			
+			</p>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>
+	
+</div>
+
+
 <!-- Adding an Exercise into exercise table -->
 
 <div>
@@ -144,6 +277,10 @@ $stmt->close();
 </div>
 
 
+
+
+
+<!-- Displays -->
 
 
 
