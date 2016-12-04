@@ -13,6 +13,8 @@ if($mysqli->connect_errno){
 <html>
 <body>
 
+
+<h2>Insertion Queries</h2>
 <!-- Adding a new Day into the day table -->
 <div>
 	<form method="post" action="addday.php"> 
@@ -276,6 +278,49 @@ $stmt->close();
 	</form>
 </div>
 
+
+
+<h2>Delete query</h2>
+
+<!-- Delete a row from table day, cascade through workout and workout_exercise -->
+<div>
+	<form method="post" action="deleteday.php"> 
+
+		<fieldset>
+			<legend>Delete a workout</legend>
+
+			<p>Select Date:</p>
+			<select name="dayId">
+<?php			
+if(!($stmt = $mysqli->prepare("SELECT id, exact_date FROM day"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($id, $edate)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value="'. $id .'"> ' . $edate . '</option>\n';
+}
+$stmt->close();
+?>
+			
+			</select>			
+			</p>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>
+	
+</div>
+
+<h2>Update query</h2>
+
+
+
+<h2>Selection Queries</h2>
 
 
 
