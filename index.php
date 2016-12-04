@@ -489,7 +489,7 @@ $stmt->close();
 
 
 
-<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Click for current state of all Tables</a>
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/testtable.php">Click for current state of all Tables</a>
 </br></br>
 
 </body>
