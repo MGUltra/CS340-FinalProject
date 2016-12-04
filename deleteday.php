@@ -21,14 +21,12 @@ if(!$stmt->execute()){
 }
 ?>
 
-<!--
-CREATE TABLE `day` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`exact_date` date NOT NULL,
-`day_of_week` varchar(255),
-PRIMARY KEY (`id`),
-UNIQUE KEY (`exact_date`)
-
-)ENGINE=InnoDB;
--->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<body>
+</br></br>
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Back</a>
+</body>
+</html>
 

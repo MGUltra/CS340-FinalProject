@@ -17,6 +17,10 @@ if($mysqli->connect_errno){
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+</br></br>
+
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Back</a>
+</br></br>
 
 
 <div>
@@ -25,23 +29,24 @@ if($mysqli->connect_errno){
 			<td>Day</td>
 		</tr>
 		<tr>
+			<td>id</td>
 			<td>Date</td>
 			<td>Day of the Week</td>
 
 		</tr>
 <?php
-if(!($stmt = $mysqli->prepare("SELECT exact_date, day_of_week FROM day"))){
+if(!($stmt = $mysqli->prepare("SELECT id, exact_date, day_of_week FROM day"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
-if(!$stmt->bind_result($eDate, $dow)){
+if(!$stmt->bind_result($dID, $eDate, $dow)){
 	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
 while($stmt->fetch()){
- echo "<tr>\n<td>\n" . $eDate . "\n</td>\n<td>\n" . $dow . "\n</td>\n</tr>";
+ echo "<tr>\n<td>\n" . $dID . "\n</td>\n<td>\n" . $eDate . "\n</td>\n<td>\n" . $dow . "\n</td>\n</tr>";
 }
 $stmt->close();
 ?>
@@ -56,24 +61,25 @@ $stmt->close();
 			<td>Workout</td>
 		</tr>
 		<tr>
+			<td>id</td>
 			<td>name</td>
 			<td>Day ID</td>
 			<td>total time in min</td>
 			<td>Time of Day</td>
 		</tr>
 <?php
-if(!($stmt = $mysqli->prepare("SELECT name, did, total_time_in_min, time_of_day FROM workout"))){
+if(!($stmt = $mysqli->prepare("SELECT id, name, did, total_time_in_min, time_of_day FROM workout"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
-if(!$stmt->bind_result($wName, $dID, $ttim, $tod)){
+if(!$stmt->bind_result($wID, $wName, $dID, $ttim, $tod)){
 	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
 while($stmt->fetch()){
- echo "<tr>\n<td>\n" . $wName . "\n</td>\n<td>\n" . $dID . "\n</td>\n<td>\n" . $ttim . "\n</td>\n<td>\n" . $tod . "\n</td>\n</tr>";
+ echo "<tr>\n<td>\n" . $wID . "\n</td>\n<td>\n" . $wName . "\n</td>\n<td>\n" . $dID . "\n</td>\n<td>\n" . $ttim . "\n</td>\n<td>\n" . $tod . "\n</td>\n</tr>";
 }
 $stmt->close();
 ?>
@@ -120,6 +126,7 @@ $stmt->close();
 			<td>Exercise</td>
 		</tr>
 		<tr>
+			<td>id</td>
 			<td>Name</td>
 			<td>Type</td>
 			<td>Resistance (if cardio)</td>
@@ -127,18 +134,18 @@ $stmt->close();
 			<td>Compound/Isolation</td>
 		</tr>
 <?php
-if(!($stmt = $mysqli->prepare("SELECT exercise_name, exercise_type, resistance, push_pull, compound_isolation FROM exercise"))){
+if(!($stmt = $mysqli->prepare("SELECT id, exercise_name, exercise_type, resistance, push_pull, compound_isolation FROM exercise"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
-if(!$stmt->bind_result($exercise_name, $exercise_type, $resistance, $push_pull, $compound_isolation)){
+if(!$stmt->bind_result($eId, $exercise_name, $exercise_type, $resistance, $push_pull, $compound_isolation)){
 	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
 while($stmt->fetch()){
- echo "<tr>\n<td>\n" . $exercise_name . "\n</td>\n<td>\n" . $exercise_type . "\n</td>\n<td>\n" . $resistance . "\n</td>\n<td>\n" . $push_pull . "\n</td>\n<td>\n" . $compound_isolation . "\n</td>\n</tr>";
+ echo "<tr>\n<td>\n" . $eId . "\n</td>\n<td>\n" . $exercise_name . "\n</td>\n<td>\n" . $exercise_type . "\n</td>\n<td>\n" . $resistance . "\n</td>\n<td>\n" . $push_pull . "\n</td>\n<td>\n" . $compound_isolation . "\n</td>\n</tr>";
 }
 $stmt->close();
 ?>		
@@ -180,22 +187,23 @@ $stmt->close();
 			<td>Muscle groups</td>
 		</tr>
 		<tr>
+			<td>id</td>
 			<td>group name</td>
 			<td>included muscles</td>
 		</tr>
 <?php
-if(!($stmt = $mysqli->prepare("SELECT group_name, included_muscles FROM muscle_groups"))){
+if(!($stmt = $mysqli->prepare("SELECT id, group_name, included_muscles FROM muscle_groups"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
-if(!$stmt->bind_result($gn, $im)){
+if(!$stmt->bind_result($mId, $gn, $im)){
 	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
 while($stmt->fetch()){
- echo "<tr>\n<td>\n" . $gn . "\n</td>\n<td>\n" . $im . "\n</td>\n</tr>";
+ echo "<tr>\n<td>\n" . $mId . "\n</td>\n<td>\n" . $gn . "\n</td>\n<td>\n" . $im . "\n</td>\n</tr>";
 }
 $stmt->close();
 ?>		

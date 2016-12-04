@@ -21,12 +21,11 @@ if(!$stmt->execute()){
 }
 ?>
 
-<!--
-CREATE TABLE `workout_exercise` (
-`w_id` int(11) NOT NULL,
-`e_id` int(11) NOT NULL,
-PRIMARY KEY(`w_id`,`e_id`),
-FOREIGN KEY (`w_id`) REFERENCES `workout` (`id`),
-FOREIGN KEY (`e_id`) REFERENCES `exercise` (`id`)
-)ENGINE=InnoDB;
--->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<body>
+</br></br>
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Back</a>
+</body>
+</html>

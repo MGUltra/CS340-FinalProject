@@ -21,12 +21,11 @@ if(!$stmt->execute()){
 }
 ?>
 
-<!--
-CREATE TABLE `muscle_groups` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`group_name` varchar(255) NOT NULL,
-`included_muscles` varchar(255),
-PRIMARY KEY(`id`)
-
-)ENGINE=InnoDB;
--->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<body>
+</br></br>
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Back</a>
+</body>
+</html>

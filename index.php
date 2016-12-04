@@ -15,7 +15,11 @@ if($mysqli->connect_errno){
 
 
 <h2>Insertion Queries</h2>
+
+
+
 <!-- Adding a new Day into the day table -->
+
 <div>
 	<form method="post" action="addday.php"> 
 
@@ -40,11 +44,14 @@ if($mysqli->connect_errno){
 	</form>
 	
 </div>
+</br></br>
+
 
 
 <!-- Adding a new Workout into the workout table -->
+
 <div>
-	<form method="post" action="addworkout.php"> 
+	<form method="post" action="newAddworkout.php"> 
 
 		<fieldset>
 			<legend>Add a new Workout</legend>
@@ -82,13 +89,45 @@ $stmt->close();
 				<option value="Evening">Evening</option>
 			</select>
 			</p>
+			
+			
+			<p>Select Exercise to add</p>
+			<select name="exID">
+<?php			
+if(!($stmt = $mysqli->prepare("SELECT id, exercise_name FROM exercise"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($id, $ename)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value=" '. $id . ' "> ' . $ename . '</option>\n';
+}
+$stmt->close();
+?>
+
+			</select>
+			
+			
+			</p>
+			
+			
 			<p><input type="submit" /></p>
 		</fieldset>
 	</form>
 	
 </div>
+</br></br>
+
+
+
 
 <!-- Adding a Workout/Exercise relationship into workout_exercise table -->
+
 <div>
 	<form method="post" action="addworkex.php"> 
 
@@ -146,6 +185,9 @@ $stmt->close();
 	</form>
 	
 </div>
+</br></br>
+
+
 
 
 <!-- Adding an Exercise into exercise table -->
@@ -186,18 +228,43 @@ $stmt->close();
 				<option value="Compound">Compound</option>
 				<option value="Isolation">Isolation</option>
 			</select>
-			</p>			
+			</p>
+			
+			<p>Select Muscle Group Targeted</p>
+			<select name="musEx">
+<?php			
+if(!($stmt = $mysqli->prepare("SELECT id, group_name FROM muscle_groups"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($id, $mname)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value=" '. $id . ' "> ' . $mname . '</option>\n';
+}
+$stmt->close();
+?>		
+		
+		</select>
+		</br>
 		 <p><input type="submit" /></p>
 	
 		</fieldset>
 	
 	</form>
 </div>
-
 </br></br>
 
 
+
+
+
 <!-- Adding a Muscle Group into into muscle_groups table -->
+
 <div>
 	<form method="post" action="addmuscle.php"> 
 
@@ -215,9 +282,10 @@ $stmt->close();
 	
 	</form>
 </div>
-
-
 </br></br>
+
+
+
 
 
 <!-- Adding an exercise/ Muscle Group relationship into exercise_muscle_groups table -->
@@ -277,12 +345,16 @@ $stmt->close();
 	
 	</form>
 </div>
+</br></br>
 
 
 
-<h2>Delete query</h2>
+
+<h2>Delete Query</h2>
+
 
 <!-- Delete a row from table day, cascade through workout and workout_exercise -->
+
 <div>
 	<form method="post" action="deleteday.php"> 
 
@@ -313,25 +385,112 @@ $stmt->close();
 			<p><input type="submit" /></p>
 		</fieldset>
 	</form>
-	
 </div>
+</br></br>
 
-<h2>Update query</h2>
+
+
+<h2>Update Query</h2>
+
+
+<!-- Update the day of the week n an existing row in the Day table -->
+
+<div>
+	<form method="post" action="updateday.php"> 
+
+		<fieldset>
+			<legend>Update the Day of the week in an Existing Day entry</legend>
+			
+						<p>Select Date:</p>
+			<select name="eDate">
+<?php			
+if(!($stmt = $mysqli->prepare("SELECT id, exact_date FROM day"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($id, $edate)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value="'. $id .'"> ' . $edate . '</option>\n';
+}
+$stmt->close();
+?>
+			
+			</select>			
+			</br>
+			
+			<p>Select new Day of the week:
+			<select name="dayWeek">
+				<option value="Sunday">Sunday</option>
+				<option value="Monday">Monday</option>
+				<option value="Tuesday">Tuesday</option>
+				<option value="Wednesday">Wednesday</option>
+				<option value="Thursday">Thursday</option>
+				<option value="Friday">Friday</option>
+				<option value="Saturday">Saturday</option>
+			</select>
+			</p>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>	
+</div>
+</br></br>
 
 
 
 <h2>Selection Queries</h2>
 
 
+<!-- Displays all muscle groups targeted on a specic date chosen by the user -->
+
+<div>
+	<form method="post" action="displaymusdate.php"> 
+
+		<fieldset>
+			<legend>Display Muscle Groups Targeted on a Specific Day</legend>
+			
+			<p>Select Date</p>
+			<select name="dayID">
+<?php			
+if(!($stmt = $mysqli->prepare("SELECT id, exact_date FROM day"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($id, $edate)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value="'. $id .'"> ' . $edate . '</option>\n';
+}
+$stmt->close();
+?>
+			
+			</select>			
+		
+			</p>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>
+</div>
+</br></br>
 
 
-<!-- Displays -->
 
 
 
 
 
 
+
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Click for current state of all Tables</a>
+</br></br>
 
 </body>
 </html>
