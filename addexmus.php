@@ -20,13 +20,11 @@ if(!$stmt->execute()){
 }
 ?>
 
-<!--
-CREATE TABLE `exercise_muscle_groups` (
-`e_id` int(11) NOT NULL,
-`mg_id` int(11) NOT NULL,
-PRIMARY KEY(`e_id`,`mg_id`),
-FOREIGN KEY (`e_id`) REFERENCES `exercise` (`id`),
-FOREIGN KEY (`mg_id`) REFERENCES `muscle_groups` (`id`)
-
-)ENGINE=InnoDB
--->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<body>
+</br></br>
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Back</a>
+</body>
+</html>

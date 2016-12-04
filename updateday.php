@@ -7,17 +7,19 @@ if($mysqli->connect_errno){
 	echo "Connection error " . $mysqli->connect_errno . " " . $mysqli->connect_error;
 	}
 
-	
-if(!($stmt = $mysqli->prepare("INSERT INTO day(exact_date, day_of_week) VALUES (?,?)"))){
+
+
+
+if(!($stmt = $mysqli->prepare("UPDATE day SET day_of_week=? WHERE id=?"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
-if(!($stmt->bind_param("ss",$_POST['theDate'],$_POST['dayWeek']))){
+if(!($stmt->bind_param("si",$_POST['dayWeek'],$_POST['eDate']))){
 	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
 } else {
-	echo "Added " . $stmt->affected_rows . " rows to day.";
+	echo "Updated " . $stmt->affected_rows . " rows in day.";
 }
 ?>
 

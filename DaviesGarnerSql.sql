@@ -23,7 +23,8 @@ CREATE TABLE `workout` (
 `total_time_in_min` int(11),
 `time_of_day` varchar(255),
 PRIMARY KEY (`id`),
-FOREIGN KEY (`did`) REFERENCES `day` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+FOREIGN KEY (`did`) REFERENCES `day` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+UNIQUE KEY (`name`)
 )ENGINE=InnoDB;
 
 
@@ -105,7 +106,7 @@ INSERT INTO `workout_exercise` (w_id, e_id) VALUES
 
 --All muscle groups worked on a certain date
 SELECT mg.group_name FROM muscle_groups mg
-INNER JOIN excercise_muscle_groups emg ON emg.mg_id = mg.id
+INNER JOIN exercise_muscle_groups emg ON emg.mg_id = mg.id
 INNER JOIN exercise e ON e.id=emg.e_id
 INNER JOIN workout_exercise we ON we.e_id = e.id
 INNER JOIN workout w ON w.id = we.w_id

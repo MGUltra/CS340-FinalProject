@@ -18,19 +18,30 @@ if(!$stmt->execute()){
 } else {
 	echo "Added " . $stmt->affected_rows . " rows to exercise.";
 }
+
+if(!($stmt = $mysqli->prepare("INSERT INTO exercise_muscle_groups(e_id, mg_id) VALUES ((SELECT id FROM exercise WHERE exercise_name=?),?)"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+if(!($stmt->bind_param("si",$_POST['exerciseName'],$_POST['musEx']))){
+	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+}
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+} else {
+	echo "</br>Added " . $stmt->affected_rows . " rows to workout_exercise.";
+}
+
 ?>
 
 
 
-<!--
-CREATE TABLE `exercise` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`exercise_name` varchar(255) NOT NULL,
-`exercise_type` varchar(255) NOT NULL, -- cardio or weight training
-`resistance` varchar(255),             -- yes/no for cardio resistance
-`push_pull` varchar(255),              -- push or pull for weight training
-`compound_isolation` varchar(255),     -- compound or isolation for weight training
-PRIMARY KEY(`id`)
 
-)ENGINE=InnoDB;
--->
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<body>
+</br></br>
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Back</a>
+</body>
+</html>

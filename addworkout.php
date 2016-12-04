@@ -19,16 +19,27 @@ if(!$stmt->execute()){
 } else {
 	echo "Added " . $stmt->affected_rows . " rows to workout.";
 }
+
+
+if(!($stmt = $mysqli->prepare("INSERT INTO workout_exercise(w_id, e_id) VALUES ((SELECT id FROM workout WHERE name=?),?)"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+if(!($stmt->bind_param("si",$_POST['wName'],$_POST['exID']))){
+	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
+}
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $stmt->errno . " " . $stmt->error;
+} else {
+	echo "</br>Added " . $stmt->affected_rows . " rows to workout_exercise.";
+}
+
 ?>
 
-<!--
-CREATE TABLE `workout` (
-`id` int(11) NOT NULL AUTO_INCREMENT,
-`did` int(11) NOT NULL,
-`name` varchar(255) NOT NULL,
-`total_time_in_min` int(11),
-`time_of_day` varchar(255),
-PRIMARY KEY (`id`),
-FOREIGN KEY (`did`) REFERENCES `day` (`id`)
-)ENGINE=InnoDB;
--->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<body>
+</br></br>
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Back</a>
+</body>
+</html>
