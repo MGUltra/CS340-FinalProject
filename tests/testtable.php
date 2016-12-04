@@ -17,6 +17,103 @@ if($mysqli->connect_errno){
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
+
+
+<div>
+	<table>
+		<tr>
+			<td>Day</td>
+		</tr>
+		<tr>
+			<td>Date</td>
+			<td>Day of the Week</td>
+
+		</tr>
+<?php
+if(!($stmt = $mysqli->prepare("SELECT exact_date, day_of_week FROM day"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($eDate, $dow)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+ echo "<tr>\n<td>\n" . $eDate . "\n</td>\n<td>\n" . $dow . "\n</td>\n</tr>";
+}
+$stmt->close();
+?>
+		
+	</table>	
+</div>
+</br></br>
+
+<div>
+	<table>
+		<tr>
+			<td>Workout</td>
+		</tr>
+		<tr>
+			<td>name</td>
+			<td>Day ID</td>
+			<td>total time in min</td>
+			<td>Time of Day</td>
+		</tr>
+<?php
+if(!($stmt = $mysqli->prepare("SELECT name, did, total_time_in_min, time_of_day FROM workout"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($wName, $dID, $ttim, $tod)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+ echo "<tr>\n<td>\n" . $wName . "\n</td>\n<td>\n" . $dID . "\n</td>\n<td>\n" . $ttim . "\n</td>\n<td>\n" . $tod . "\n</td>\n</tr>";
+}
+$stmt->close();
+?>
+		
+	</table>	
+</div>
+</br></br>
+
+
+<div>
+	<table>
+		<tr>
+			<td>Workout/Exercise</td>
+		</tr>
+		<tr>
+			<td>Workout ID</td>
+			<td>Exercise ID</td>
+		</tr>
+<?php
+if(!($stmt = $mysqli->prepare("SELECT w_id, e_id FROM workout_exercise"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($wID, $eID)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+ echo "<tr>\n<td>\n" . $wID . "\n</td>\n<td>\n" . $eID . "\n</td>\n</tr>";
+}
+$stmt->close();
+?>
+		
+	</table>	
+</div>
+</br></br>
+		
+		
 <div>
 	<table>
 		<tr>
