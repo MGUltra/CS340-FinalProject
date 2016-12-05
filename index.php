@@ -1,3 +1,4 @@
+<!-- PHP template from provided lecture files -->
 <?php
 //Turn on error reporting
 ini_set('display_errors', 'On');
@@ -26,8 +27,10 @@ if($mysqli->connect_errno){
 		<fieldset>
 			<legend>Add a new Workout Day</legend>
 			
+			<!-- Select Date -->
 			<p>Date: <input type="date" name="theDate" /></p>
 			
+			<!-- Select Day of the week -->
 			<p>Day of the week:
 			<select name="dayWeek">
 				<option value="Sunday">Sunday</option>
@@ -51,11 +54,12 @@ if($mysqli->connect_errno){
 <!-- Adding a new Workout into the workout table -->
 
 <div>
-	<form method="post" action="newAddworkout.php"> 
+	<form method="post" action="addworkout.php"> 
 
 		<fieldset>
 			<legend>Add a new Workout</legend>
 			
+			<!-- Select Date from dropdown menu populated by query to day table -->
 			<p>Select Date:</p>
 			<select name="eDate">
 <?php			
@@ -77,11 +81,14 @@ $stmt->close();
 			
 			</select>			
 			
-
-			<p>Workout Name(Ex."Leg Day"): <input type="text" name="wName" /></p>
+			<!-- Enter Workout Name -->
+			<p>Workout name must be unique for each workout Ex: Leg Day 1, Leg Day 2, etc.</p>
+			<p>Workout Name: <input type="text" name="wName" /></p>
 			
+			<!-- Enter Length in minutes of workout -->
 			<p>Total length of workout in minutes: <input type="number" name="toTime" /></p>
 			
+			<!-- Select Time of Day -->
 			<p>Time of Day:
 			<select name="tDay">
 				<option value="Morning">Morning</option>
@@ -90,7 +97,7 @@ $stmt->close();
 			</select>
 			</p>
 			
-			
+			<!-- Select Exercise from dropdown menu populated from query to exercise table -->
 			<p>Select Exercise to add</p>
 			<select name="exID">
 <?php			
@@ -134,6 +141,7 @@ $stmt->close();
 		<fieldset>
 			<legend>Add an exercise to a Workout</legend>
 			
+			<!-- Select workout by name from dropdown menu populated from query to workout table -->
 			<p>Select Workout by name</p>
 			<select name="wName">
 <?php			
@@ -157,6 +165,7 @@ $stmt->close();
 			
 			</br>
 			
+			<!-- Select exercise by name from dropdown menu populated from query to exercise -->
 			<p>Select Exercise</p>
 			<select name="eName">
 <?php			
@@ -198,8 +207,10 @@ $stmt->close();
 		<fieldset>
 			<legend>Add a new Exercise</legend>
 			
+			<!-- Enter Exercise Name -->
 			<p>Exercise Name: <input type="text" name="exerciseName" /></p>
 			
+			<!-- Select Exercise Type -->
 			<p>Exercise Type:
 			<select name="exerciseType">
 				<option value="Cardio">Cardio</option>
@@ -207,6 +218,7 @@ $stmt->close();
 			</select>
 			</p>
 			
+			<!-- Select Resistance value -->			
 			<p>Resistance on? (if Cardio):
 			<select name="resistance">
 				<option value="N/A">N/A</option>
@@ -215,6 +227,7 @@ $stmt->close();
 			</select>
 			</p>
 			
+			<!-- Select whether strength exercise is push or pull-->
 			<p>Push or Pull? (if Strength):
 			<select name="pushPull">
 				<option value="N/A">N/A</option>
@@ -223,6 +236,7 @@ $stmt->close();
 			</select>
 			</p>
 			
+			<!-- Select whether strength exercise is push or pull-->
 			<p>Compound or Isolation?:
 			<select name="compoundIsolation">
 				<option value="Compound">Compound</option>
@@ -230,6 +244,7 @@ $stmt->close();
 			</select>
 			</p>
 			
+			<!-- Select target muscle group from list populated by query to muscle-groups-->
 			<p>Select Muscle Group Targeted</p>
 			<select name="musEx">
 <?php			
@@ -271,8 +286,10 @@ $stmt->close();
 		<fieldset>
 			<legend>Add a new Muscle Group</legend>
 			
+			<!-- Enter name of new Muscle Group -->
 			<p>Muscle Group Name: <input type="text" name="groupName" /></p>
 			
+			<!-- Include a list of individual muscles in the group if you desire-->
 			<p>List Included Muscles: <input type="text" name="includedMuscles" /></p>
 			
 
@@ -296,6 +313,8 @@ $stmt->close();
 		<fieldset>
 			<legend>Connect a muscle group to an exercise that targets it</legend>
 			
+			
+			<!-- Select exercise by name from dropdown menu populated from query to exercise -->
 			<p>Select Exercise</p>
 			<select name="exMus">
 <?php			
@@ -317,7 +336,7 @@ $stmt->close();
 			
 			</select>
 			
-			
+			<!-- Select muscle group from list populated by query to muscle-groups-->
 			<p>Select Muscle Group Targeted</p>
 			<select name="musEx">
 <?php			
@@ -353,7 +372,7 @@ $stmt->close();
 <h2>Delete Query</h2>
 
 
-<!-- Delete a row from table day, cascade through workout and workout_exercise -->
+<!-- Delete a row from table day, cascades through workout and workout_exercise -->
 
 <div>
 	<form method="post" action="deleteday.php"> 
@@ -361,6 +380,7 @@ $stmt->close();
 		<fieldset>
 			<legend>Delete a workout</legend>
 
+			<!-- Select date from list populated by query to day -->
 			<p>Select Date:</p>
 			<select name="dayId">
 <?php			
@@ -371,11 +391,11 @@ if(!($stmt = $mysqli->prepare("SELECT id, exact_date FROM day"))){
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
-if(!$stmt->bind_result($id, $edate)){
+if(!$stmt->bind_result($id, $wdate)){
 	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
 while($stmt->fetch()){
-	echo '<option value="'. $id .'"> ' . $edate . '</option>\n';
+	echo '<option value="'. $id .'"> ' . $wdate . '</option>\n';
 }
 $stmt->close();
 ?>
@@ -401,7 +421,9 @@ $stmt->close();
 		<fieldset>
 			<legend>Update the Day of the week in an Existing Day entry</legend>
 			
-						<p>Select Date:</p>
+			
+			<!-- Select date from list populated by query to day -->
+			<p>Select Date:</p>
 			<select name="eDate">
 <?php			
 if(!($stmt = $mysqli->prepare("SELECT id, exact_date FROM day"))){
@@ -423,6 +445,7 @@ $stmt->close();
 			</select>			
 			</br>
 			
+			<!-- Select day of week as the update value -->
 			<p>Select new Day of the week:
 			<select name="dayWeek">
 				<option value="Sunday">Sunday</option>
@@ -445,7 +468,7 @@ $stmt->close();
 <h2>Selection Queries</h2>
 
 
-<!-- Displays all muscle groups targeted on a specic date chosen by the user -->
+<!-- Displays all muscle groups targeted on a specific date chosen by the user -->
 
 <div>
 	<form method="post" action="displaymusdate.php"> 
@@ -453,6 +476,8 @@ $stmt->close();
 		<fieldset>
 			<legend>Display Muscle Groups Targeted on a Specific Day</legend>
 			
+			
+			<!-- Select date from list populated by query to day -->
 			<p>Select Date</p>
 			<select name="dayID">
 <?php			
@@ -483,13 +508,48 @@ $stmt->close();
 
 
 
+<!-- Displays all Exercises targeting on a specific Muscle Group chosen by the user -->
+<div>
+	<form method="post" action="displaymusex.php"> 
+
+		<fieldset>
+			<legend>Display Exercises that target a specific Muscle Group</legend>
+			
+			<!-- Select Muscle Group from list populated by query to muscle_groups -->
+			<p>Select Muscle Group</p>
+			<select name="mgroupID">
+<?php			
+if(!($stmt = $mysqli->prepare("SELECT id, group_name FROM muscle_groups"))){
+	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
+}
+
+if(!$stmt->execute()){
+	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+if(!$stmt->bind_result($id, $gName)){
+	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
+}
+while($stmt->fetch()){
+	echo '<option value="'. $id .'"> ' . $gName . '</option>\n';
+}
+$stmt->close();
+?>
+			
+			</select>			
+		
+			</p>
+			<p><input type="submit" /></p>
+		</fieldset>
+	</form>
+</div>
+</br></br>
 
 
 
 
 
-
-<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Click for current state of all Tables</a>
+<!-- This page displays the result of a select query to all tables to show current state of all of them  -->
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/testtable.php">Click for current state of all Tables</a>
 </br></br>
 
 </body>

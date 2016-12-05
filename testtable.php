@@ -1,3 +1,4 @@
+<!-- PHP template from provided lecture files -->
 <?php
 //Turn on error reporting
 ini_set('display_errors', 'On');
@@ -16,13 +17,20 @@ if($mysqli->connect_errno){
 <head>
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
+
+<!-- This page makes simple select queries for each table, and builds a HTML table for each entity. -->
+<!-- This was made to help in testing and also so the graders would have an easy way to see if our -->
+<!-- queries are working or not -->
+
+
+
 <body>
 </br></br>
 
 <a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Back</a>
 </br></br>
 
-
+<!-- day -->
 <div>
 	<table>
 		<tr>
@@ -55,6 +63,9 @@ $stmt->close();
 </div>
 </br></br>
 
+
+
+<!-- workout -->
 <div>
 	<table>
 		<tr>
@@ -89,6 +100,8 @@ $stmt->close();
 </br></br>
 
 
+<!-- workout_exercise -->
+
 <div>
 	<table>
 		<tr>
@@ -119,7 +132,9 @@ $stmt->close();
 </div>
 </br></br>
 		
+
 		
+<!-- exercise -->
 <div>
 	<table>
 		<tr>
@@ -152,6 +167,10 @@ $stmt->close();
 	</table>	
 </div>
 </br></br>
+
+
+
+<!-- exercise_muscle_groups -->
 <div>
 	<table>
 		<tr>
@@ -179,8 +198,11 @@ $stmt->close();
 ?>		
 	</table>	
 </div>
-
 </br></br>
+
+
+
+<!-- muscle_groups -->
 <div>
 	<table>
 		<tr>
@@ -211,7 +233,10 @@ $stmt->close();
 </div>
 
 
-
+<!-- Link Back home -->
+</br></br>
+<a href="http://web.engr.oregonstate.edu/~garnemat/test/index.php">Back</a>
+</br></br>
 
 </body>
 </html>

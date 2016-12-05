@@ -19,35 +19,36 @@ if($mysqli->connect_errno){
 <body>
 
 <!-- This page recieves a POST call from index.php and then makes a query and builds a table -->
-<!-- Showing all the muscles targeted on a date of the Users choosing. Every Table is utilized-->
-<!-- accross a series of joins to get the results. -->
+<!-- Showing all the exercises that target a specific muscle group. The idea is that this query-->
+<!-- can be used in conjunction with the query displaying all muscle groups worked out on a day -->
+<!-- to help fill any gaps in a workout -->
 
 <div>
 	<table>
 		<tr>
-			<td>Muscles targeted</td>
+			<td>Exercises targeting selected Muscle Group</td>
 		</tr>
 		<tr>
-			<td>Muscle Groups</td>
-			<td>Included Muscles</td>
+			<td>Exercise Name</td>
+			<td>Exercise Type</td>
 		</tr>
 <?php
-if(!($stmt = $mysqli->prepare("SELECT mg.group_name, mg.included_muscles FROM muscle_groups mg INNER JOIN exercise_muscle_groups emg ON emg.mg_id = mg.id INNER JOIN exercise e ON e.id=emg.e_id INNER JOIN workout_exercise we ON we.e_id = e.id INNER JOIN workout w ON w.id = we.w_id INNER JOIN day on day.id = w.did WHERE day.id = ? GROUP BY group_name"))){
+if(!($stmt = $mysqli->prepare("SELECT exercise_name, exercise_type FROM exercise e INNER JOIN exercise_muscle_groups emg ON emg.e_id = e.id INNER JOIN muscle_groups mg ON mg.id = emg.mg_id WHERE mg.id=?"))){
 	echo "Prepare failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
-if(!($stmt->bind_param("i",$_POST['dayID']))){
+if(!($stmt->bind_param("i",$_POST['mgroupID']))){
 	echo "Bind failed: "  . $stmt->errno . " " . $stmt->error;
 }
 
 if(!$stmt->execute()){
 	echo "Execute failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
-if(!$stmt->bind_result($mGroup, $iMus)){
+if(!$stmt->bind_result($eName, $eType)){
 	echo "Bind failed: "  . $mysqli->connect_errno . " " . $mysqli->connect_error;
 }
 while($stmt->fetch()){
- echo "<tr>\n<td>\n" . $mGroup . "\n</td>\n<td>\n" . $iMus . "\n</td>\n</tr>";
+ echo "<tr>\n<td>\n" . $eName . "\n</td>\n<td>\n" . $eType . "\n</td>\n</tr>";
 }
 $stmt->close();
 ?>

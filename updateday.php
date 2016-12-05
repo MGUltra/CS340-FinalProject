@@ -1,3 +1,9 @@
+<!-- This page recieves a POST call from index.php and then makes a query updating the -->
+<!-- entry for a date selected by a user. They can then update the day of the week the day-->
+<!-- records any workouts happening, if they have been added. a prompt will inform the user -->
+<!-- that a row has been update if it is successful -->
+
+<!-- PHP template from provided lecture files -->
 <?php
 //Turn on error reporting
 ini_set('display_errors', 'On');
@@ -23,6 +29,8 @@ if(!$stmt->execute()){
 }
 ?>
 
+
+<!-- Link Back home -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>

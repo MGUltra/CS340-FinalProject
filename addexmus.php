@@ -1,3 +1,9 @@
+<!-- This page recieves a POST call from index.php and then makes a query adding the user -->
+<!-- selected exercise and muscle group id's into the exercise_muscle_groups table to represent -->
+<!-- a relationship between the two. A prompt signals a successful insertion -->
+
+
+<!-- PHP template from provided lecture files -->
 <?php
 //Turn on error reporting
 ini_set('display_errors', 'On');
@@ -20,6 +26,8 @@ if(!$stmt->execute()){
 }
 ?>
 
+
+<!-- Link Back home -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>

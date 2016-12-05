@@ -1,3 +1,9 @@
+<!-- This page recieves a POST call from index.php and then makes a query adding a new -->
+<!-- muscle group to the muscle_groups table. Both the group name and included muscles strings -->
+<!-- are added, and the user is prompted that the insertion was successful, if it was -->
+
+
+<!-- PHP template from provided lecture files -->
 <?php
 //Turn on error reporting
 ini_set('display_errors', 'On');
@@ -21,6 +27,8 @@ if(!$stmt->execute()){
 }
 ?>
 
+
+<!-- Link Back home -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
 "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html>
